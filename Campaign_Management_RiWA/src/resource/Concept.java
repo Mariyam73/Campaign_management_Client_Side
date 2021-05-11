@@ -158,11 +158,13 @@ public class Concept {
 				
 				con.close();
 				
-				output = "Concept "+conceptName+" Inserted Successfully with code : "+conceptCode;
+				String newConcepts = readMyConcepts(researcherID);
+				output = "{\"status\":\"success\", \"data\": \"" +newConcepts + "\"}";
 			}
 			catch (Exception e)
 			{
-				output = "Error while launching the concept!!";
+
+				output = "{\"status\":\"error\", \"data\":\"Error while launching the concept\"}";
 				System.err.println(e.getMessage());
 			}
 			return output;

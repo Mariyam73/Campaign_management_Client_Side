@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import = "resource.Concept" %>
+<%@page import = "java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,20 +60,51 @@
                     <br>
                 </div>
             </div>
+            
+            <div class="form-row">
+                <div class="col">
+                    <select>
+                    	<option class="dropdown-menu">Researcher ID</option>
+                    	<%
+                    		try{
+                    			Connection con = null;
+                    			Class.forName("com.mysql.jdbc.Driver");
+                    			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/user_service?useSSL=false", "root", "Shahimaria@123");
+                    			Statement st = con.createStatement();
+                    			String query = "select * from researcher";
+                    			ResultSet rs = st.executeQuery(query);
+                    			
+                    			while(rs.next()){
+                    				%>
+                    				<option value="<%=rs.getString("researcherCode")%>"><%=rs.getString("userName") %></option>
+                    				<%
+                    			}
+                    			con.close();
+                    		}catch(Exception e){
+                    			
+                    		}
+                    	%>
+                    </select>
+                </div>
+            	<div class="col">
+                    <input id="manufactID" name="manufactID" type="text" class="form-control form-control-sm" placeholder="Manufacturer ID">
+                    <br>
+                </div>
+            </div>
 			
 			<input id="btnSave" name="btnSave" type="button" value="Add Concept" class="btn btn-primary">
             <input type="hidden" id="hidConceptIDSave" name="hidConceptIDSave" value="">
 		</form>
-		
-		<!--  <div id="alertSuccess" class="alert alert-success"></div>
-		<div id="alertError" class="alert alert-danger"></div>-->
 		<br>
-		<div id="divItemsGrid">
+		<div id="alertSuccess" class="alert alert-success"></div>
+		<div id="alertError" class="alert alert-danger"></div>
+		<br>
+		<%-- <div id="divItemsGrid">
 		<%
 			Concept conceptObj = new Concept();
 			out.print(conceptObj.readAllConcepts());
 		%>
-		</div>
+		</div> --%>
 	</div>
 	</div> 
 	</div>
