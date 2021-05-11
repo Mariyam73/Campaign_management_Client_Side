@@ -112,6 +112,7 @@ public class Concept {
 					return dbErrorMessage;
 				}
 				
+				System.out.println(researcherID);
 				//Hashing the concept name and description
 				ConceptHashing conceptHash = new ConceptHashing();
 				String hName = conceptHash.hashPassword(conceptName);

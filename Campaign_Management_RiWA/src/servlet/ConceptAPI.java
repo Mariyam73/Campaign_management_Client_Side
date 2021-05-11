@@ -37,7 +37,7 @@ public class ConceptAPI extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String output = conceptObj.insertConcept(request.getParameter("conceptName"), 
-				request.getParameter("coneptDesc"), 
+				request.getParameter("conceptDesc"), 
 				request.getParameter("startDate"), 
 				request.getParameter("deadline"), 
 				request.getParameter("pledgeGoal"), 
