@@ -71,6 +71,66 @@ function onConceptSaveComplete(response, status)
 
 
 
+//UPDATE==========================================
+$(document).on("click", ".btnUpdate", function(event)
+{
+	//$("#hidConceptIDSave").val($(this).data("conceptCode"));
+	$("#conceptName").val($(this).closest("tr").find('td:eq(1)').text());
+	$("#conceptDesc").val($(this).closest("tr").find('td:eq(2)').text());
+	$("#startDate").val($(this).closest("tr").find('td:eq(3)').text());
+	$("#deadline").val($(this).closest("tr").find('td:eq(4)').text());
+	$("#pledgeGoal").val($(this).closest("tr").find('td:eq(5)').text());
+	$("#reward").val($(this).closest("tr").find('td:eq(6)').text());
+	$("#workUpdt").val($(this).closest("tr").find('td:eq(9)').text());
+	$("#researcherID").val($(this).closest("tr").find('td:eq(10)').text());
+	$("#manufactID").val($(this).closest("tr").find('td:eq(11)').text());
+});
+
+
+//DELETE=================================================
+$(document).on("click", ".btnRemove", function(event)
+		{
+			$.ajax(
+			{
+				url : "ConceptAPI",
+				type : "DELETE",
+				data : "conceptCode=" + $(this).data("conceptCode"),
+				dataType : "text",
+				complete : function(response, status)
+				{
+					onConceptDeleteComplete(response.responseText, status);
+				}
+			});
+});
+
+
+function onConceptDeleteComplete(response, status)
+{
+	if (status == "success")
+	{
+		var resultSet = JSON.parse(response);
+		if (resultSet.status.trim() == "success")
+		{
+			$("#alertSuccess").text("Successfully deleted.");
+			$("#alertSuccess").show();
+			$("#divItemsGrid").html(resultSet.data);
+		} else if (resultSet.status.trim() == "error")
+		{
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+		} else if (status == "error")
+		{
+			$("#alertError").text("Error while deleting.");
+			$("#alertError").show();
+		} else
+		{
+			$("#alertError").text("Unknown error while deleting..");
+			$("#alertError").show();
+	}
+}
+
+
 //========== VALIDATION ================================================
 function validateConceptForm()
 {

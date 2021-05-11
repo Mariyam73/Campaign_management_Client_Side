@@ -12,7 +12,7 @@ public class Concept {
 		String dbErrorMessage = "Database Connection failed!!";
 		
 		// ---Method to retrieve concept details of a researcher---
-		public String readMyConcepts(String researcherID)
+		public String readMyConcepts()
 		{
 			String output = "";
 			try
@@ -29,10 +29,12 @@ public class Concept {
 				+ "<th>Start Date</th><th>Deadline</th>"
 				+ "<th>Pledge Goal</th><th>Reward</th>"
 				+ "<th>Pledged Amount</th>"
-				+ "<th>Status</th><th>Work Update</th></tr>";
+				+ "<th>Status</th><th>Work Update</th>"
+				+ "<th>Researcher</th><th>Manufacturer</th>"
+				+"<th>Update</th><th>Remove</th></tr>";
 				
 				// Retrieving the concepts launched by a particular researcher
-				String query = "select c.conceptID, c.conceptCode, hn.nKey as conceptName, hd.nKey as conceptDesc, c.startDate, c.deadline, c.pledgeGoal, c.reward, c.status, c.workUpdt from concept c, hconceptname hn, hconceptdesc hd where c.conceptName = hn.Value and c.conceptDesc = hd.Value and c.researcherID = '"+researcherID+"' ";
+				String query = "select c.conceptID, c.conceptCode, hn.nKey as conceptName, hd.nKey as conceptDesc, c.startDate, c.deadline, c.pledgeGoal, c.reward, c.status, c.workUpdt, c.researcherID, c.manufactID from concept c, hconceptname hn, hconceptdesc hd where c.conceptName = hn.Value and c.conceptDesc = hd.Value";
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
 				
@@ -49,6 +51,8 @@ public class Concept {
 					String reward = rs.getString("reward");
 					String status = rs.getString("status");
 					String workUpdt = rs.getString("workUpdt");
+					String researcherID = rs.getString("researcherID");
+					String manufactID = rs.getString("manufactID");
 					
 					// -- Calling a stored function in the database to retrieve the total pledged amount --
 					//Preparing a CallableStatement to call a function
@@ -81,7 +85,14 @@ public class Concept {
 					output += "<td>" + reward + "</td>";
 					output += "<td>" + pledgedAmount + "</td>";
 					output += "<td>" + status + "</td>";
-					output += "<td>" + workUpdt + "</td></tr>";
+					output += "<td>" + workUpdt + "</td>";
+					output += "<td>" + researcherID + "</td>";
+					output += "<td>" + manufactID + "</td>";
+					
+					output += "<td><input name='btnUpdate' type='button' value='Update' "
+							+ "class='btnUpdate btn btn-secondary' data-conceptCode='" + conceptCode + "'></td>"
+							+ "<td><input name='btnRemove' type='button' value='Remove' "
+							+ "class='btnRemove btn btn-danger' data-conceptCode='" + conceptCode + "'></td></tr>";
 					
 					}
 					con.close();
@@ -159,7 +170,7 @@ public class Concept {
 				
 				con.close();
 				
-				String newConcepts = readMyConcepts(researcherID);
+				String newConcepts = readMyConcepts();
 				output = "{\"status\":\"success\", \"data\": \"" +newConcepts + "\"}";
 			}
 			catch (Exception e)
@@ -220,14 +231,15 @@ public class Concept {
 						insertDescForKey(conceptDesc, hDesc);
 						
 						con.close();
-						output = "Concept Details Updated Successfully!!";
+						String newItems = readMyConcepts();
+						output = "{\"status\":\"success\", \"data\": \"" +newItems + "\"}";
 					}
 				}
 				
 			}
 			catch (Exception e)
 			{
-				output = "Error while updating the concept details!!";
+				output = "{\"status\":\"error\", \"data\":\"Error while updating the concept\"}";
 				System.err.println(e.getMessage());
 			}
 			return output;
@@ -269,13 +281,14 @@ public class Concept {
 						// execute the statement
 						preparedStmt.execute();
 						con.close();
-						output = "Concept deleted successfully";
+						String newItems = readMyConcepts();
+						output = "{\"status\":\"success\", \"data\": \"" +newItems + "\"}";
 					}
 				}
 			}
 			catch (Exception e)
 			{
-				output = "Error while deleting the concept";
+				output = "{\"status\":\"error\", \"data\":\"Error while deleting the concept\"}";
 				System.err.println(e.getMessage());
 			}
 			return output;

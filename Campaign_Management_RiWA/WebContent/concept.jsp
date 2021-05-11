@@ -107,12 +107,13 @@
 		<div id="alertSuccess" class="alert alert-success"></div>
 		<div id="alertError" class="alert alert-danger"></div>
 		<br>
-		<%-- <div id="divItemsGrid">
+		
+		<div id="divItemsGrid">
 		<%
 			Concept conceptObj = new Concept();
-			out.print(conceptObj.readAllConcepts());
+			out.print(conceptObj.readMyConcepts());
 		%>
-		</div> --%>
+		</div>
 		<%-- <form id="formResearcher" name="formResearcher">
 			<select id = "researcherID">
                     	<option class="dropdown-menu">Researcher Name</option>
