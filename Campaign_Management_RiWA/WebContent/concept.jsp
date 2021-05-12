@@ -15,10 +15,10 @@
 </head>
 <body>
 <% UserDBConnection userConn = new UserDBConnection(); %>
-<div class = "container-fluid">
+
 	<div class="container">
 	<div class="row">
-	<div class="col-6">
+	<div class="col-12">
 		<h1 align="center">Concept Management</h1>
 		<form id="formConcept" name="formConcept">
 			<input id="conceptName" name="conceptName" type="text" class="form-control form-control-sm" placeholder="Concept name">
@@ -116,7 +116,6 @@
 
 	</div>
 	</div> 
-	</div>
 	</div>
 
 </body>
