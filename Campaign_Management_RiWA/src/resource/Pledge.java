@@ -93,12 +93,8 @@ public class Pledge {
 							output += "<td>" + workUpdt + "</td>";
 							
 							// button for backing a concept
-							output += "<td><form method='post' >"
-							+ "<input name='btnBacks' "
-							+ " type='submit' value='Back the project' class=\"btn btn-success\">"
-							+ "<input name='conceptID' type='hidden' "
-							+ " value=' " + conceptID + "'>"
-							+ "</form></td></tr>";
+							output += "<td><input name='btnBacks' type='button' value='Back the project' "
+									+ "class='btnBacks btn btn-success' data-conceptcode='" + conceptCode + "'></td></tr>";
 							
 							}
 							con.close();
@@ -142,11 +138,12 @@ public class Pledge {
 				preparedStmt.execute();
 				con.close();
 				
-				output = "You pledged the project successfully!!";
+				String newConcepts = readAllConcepts();
+				output = "{\"status\":\"success\", \"data\": \"" +newConcepts + "\"}";
 			}
 			catch (Exception e)
 			{
-				output = "Failed to pledge!!";
+				output = "{\"status\":\"error\", \"data\":\"Error while launching the concept\"}";
 				System.err.println(e.getMessage());
 			}
 			return output;

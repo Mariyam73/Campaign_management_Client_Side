@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="Views/bootstrap.min.css">
 	<link rel="stylesheet" href="Views/form.css">
 	<script src="Components/jquery-3.2.1.min.js"></script>
-	<script src="Components/concept.js"></script>
+	<script src="Components/pledge.js"></script>
 </head>
 <body>
 <% UserDBConnection userConn = new UserDBConnection(); %>
@@ -22,7 +22,7 @@
 		<center><h1>Pledge Management</h1></center>
 			<br>
 			<form id="formPledge" name="formPledge" style = "border: 1px solid black;padding: 3%;">
-			<input id="conceptID" name="conceptID" type="text" class="form-control form-control-sm" placeholder="Concept Code">
+			<input id="conceptCode" name="conceptCode" type="text" class="form-control form-control-sm" placeholder="Concept Code">
 			<br> 
 		
 			 <select id = "backerID" name = "backerID" class="form-control form-control-sm">
@@ -51,7 +51,10 @@
 		      <br> 
 			<input id="btnSave" name="btnSave" type="button" value="Pledge Concept" class="btn btn-primary">
             <input type="hidden" id="hidPledgeIDSave" name="hidPledgeIDSave" value="">
-		</form><br><br>
+		</form><br>
+		<div id="alertSuccess" class="alert alert-success"></div>
+		<div id="alertError" class="alert alert-danger"></div>
+		<br>
 		
 		<div id="divItemsGrid">
 		<%
