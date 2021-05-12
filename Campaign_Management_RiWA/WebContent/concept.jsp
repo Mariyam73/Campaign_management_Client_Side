@@ -15,7 +15,7 @@
 </head>
 <body>
 <% UserDBConnection userConn = new UserDBConnection(); %>
-
+<div class = "container-fluid">
 	<div class="container">
 	<div class="row">
 	<div class="col-6">
@@ -54,7 +54,7 @@
             
             <div class="form-row">
                 <div class="col">
-                    <select id = "researcherID" name = "researcherID">
+                    <select id = "researcherID" name = "researcherID" class="form-control form-control-sm">
                     	<option class="dropdown-menu">Researcher Name</option>
                     	<%
                     		try{
@@ -76,7 +76,7 @@
                     </select>
                 </div>
             	<div class="col">
-                   <select id = "manufactID" name="manufactID">
+                   <select id = "manufactID" name="manufactID" class="form-control form-control-sm">
                     	<option class="dropdown-menu">Manufacturer Name</option>
                     	<%
                     		try{
@@ -99,7 +99,6 @@
                     <br>
                 </div>
             </div>
-			<br>
 			<input id="btnSave" name="btnSave" type="button" value="Add Concept" class="btn btn-primary">
             <input type="hidden" id="hidConceptIDSave" name="hidConceptIDSave" value="">
 		</form>
@@ -114,33 +113,10 @@
 			out.print(conceptObj.readMyConcepts());
 		%>
 		</div>
-		<%-- <form id="formResearcher" name="formResearcher">
-			<select id = "researcherID">
-                    	<option class="dropdown-menu">Researcher Name</option>
-                    	<%
-                    		try{
-                    			Connection con = userConn.connect();
-                    			Statement st = con.createStatement();
-                    			String query = "select * from researcher";
-                    			ResultSet rs = st.executeQuery(query);
-                    			
-                    			while(rs.next()){
-                    				%>
-                    				<option value="<%=rs.getString("researcherCode")%>"><%=rs.getString("userName") %></option>
-                    				<%
-                    			}
-                    			con.close();
-                    		}catch(Exception e){
-                    			
-                    		}
-                    	%>
-                    </select>
-                    <br>
-                    <input id="btnView" name="btnView" type="button" value="View Concept" class="btn btn-primary">
-            		<input type="hidden" id="hidConceptIDSave" name="hidConceptIDSave" value="">
-		</form> --%>
+
 	</div>
 	</div> 
+	</div>
 	</div>
 
 </body>

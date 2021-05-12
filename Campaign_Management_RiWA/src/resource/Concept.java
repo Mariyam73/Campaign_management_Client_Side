@@ -90,9 +90,9 @@ public class Concept {
 					output += "<td>" + manufactID + "</td>";
 					
 					output += "<td><input name='btnUpdate' type='button' value='Update' "
-							+ "class='btnUpdate btn btn-secondary' data-conceptCode='" + conceptCode + "'></td>"
+							+ "class='btnUpdate btn btn-secondary' data-conceptcode='" + conceptCode + "'></td>"
 							+ "<td><input name='btnRemove' type='button' value='Remove' "
-							+ "class='btnRemove btn btn-danger' data-conceptCode='" + conceptCode + "'></td></tr>";
+							+ "class='btnRemove btn btn-danger' data-conceptcode='" + conceptCode + "'></td></tr>";
 					
 					}
 					con.close();
@@ -209,7 +209,7 @@ public class Concept {
 					
 					//if completed display cannot update, esle update it
 					if(conceptStatus.equals("Completed")) {
-						output = "Concept cannot be updated!!";
+						output = "{\"status\":\"error\", \"data\":\"Cannot update concept\"}";
 					}else {
 						// create a prepared statement
 						String query = "UPDATE concept SET conceptName=?,conceptDesc=?,pledgeGoal=?,reward=?,workUpdt=? WHERE conceptCode=?";

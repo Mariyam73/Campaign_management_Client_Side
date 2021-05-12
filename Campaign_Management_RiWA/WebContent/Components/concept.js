@@ -74,7 +74,7 @@ function onConceptSaveComplete(response, status)
 //UPDATE==========================================
 $(document).on("click", ".btnUpdate", function(event)
 {
-	//$("#hidConceptIDSave").val($(this).data("conceptCode"));
+	$("#hidConceptIDSave").val($(this).data("conceptcode"));
 	$("#conceptName").val($(this).closest("tr").find('td:eq(1)').text());
 	$("#conceptDesc").val($(this).closest("tr").find('td:eq(2)').text());
 	$("#startDate").val($(this).closest("tr").find('td:eq(3)').text());
@@ -94,17 +94,17 @@ $(document).on("click", ".btnRemove", function(event)
 			{
 				url : "ConceptAPI",
 				type : "DELETE",
-				data : "conceptCode=" + $(this).data("conceptCode"),
+				data : "conceptCode=" + $(this).data("conceptcode"),
 				dataType : "text",
 				complete : function(response, status)
 				{
-					onConceptDeleteComplete(response.responseText, status);
+					onItemDeleteComplete(response.responseText, status);
 				}
 			});
 });
 
 
-function onConceptDeleteComplete(response, status)
+function onItemDeleteComplete(response, status)
 {
 	if (status == "success")
 	{
