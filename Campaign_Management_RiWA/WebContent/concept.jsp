@@ -3,23 +3,32 @@
 <%@page import = "resource.Concept" %>
 <%@page import = "util.UserDBConnection" %>
 <%@page import = "java.sql.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Concepts Management</title>
+	
+	<!-- Linking the relevent css scripts -->
 	<link rel="stylesheet" href="Views/bootstrap.min.css">
 	<link rel="stylesheet" href="Views/form.css">
+	
+	<!-- Linking the relevent js files -->
 	<script src="Components/jquery-3.2.1.min.js"></script>
 	<script src="Components/concept.js"></script>
 </head>
 <body>
+
+<!-- A connection object created -->
 <% UserDBConnection userConn = new UserDBConnection(); %>
 
 	<div class="container">
 	<div class="row">
 	<div class="col-12">
 		<h1 align="center">Concept Management</h1>
+		
+		<!--------------------- Start of form  ------------------------------->
 		<form id="formConcept" name="formConcept">
 			<input id="conceptName" name="conceptName" type="text" class="form-control form-control-sm" placeholder="Concept name">
 			<br> 
@@ -102,11 +111,15 @@
 			<input id="btnSave" name="btnSave" type="button" value="Add Concept" class="btn btn-primary">
             <input type="hidden" id="hidConceptIDSave" name="hidConceptIDSave" value="">
 		</form>
+		<!--------------------- End of form  ------------------------------->
+		
 		<br>
+		<!--------------------- Alerts  ------------------------------->
 		<div id="alertSuccess" class="alert alert-success"></div>
 		<div id="alertError" class="alert alert-danger"></div>
 		<br>
 		
+		<!--------------------- Display concepts  ------------------------------->
 		<div id="divItemsGrid">
 		<%
 			Concept conceptObj = new Concept();

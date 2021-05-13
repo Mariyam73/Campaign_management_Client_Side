@@ -64,12 +64,8 @@ public class PledgeAPI extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map paras = getParasMap(request);
-		/*String output = conceptObj.insertPledge(paras.get("hidPledgeIDSave").toString(),
-				paras.get("backerID").toString(),
-				paras.get("pledgedAmnt").toString());
-				response.getWriter().write(output);*/
-		String output = conceptObj.insertPledge(request.getParameter("conceptCode"),
+		String output = conceptObj.insertPledge(
+				request.getParameter("conceptCode"),
 				request.getParameter("backerID"), 
 				request.getParameter("pledgedAmnt"));
 				response.getWriter().write(output);

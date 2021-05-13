@@ -1,7 +1,16 @@
+$(document).ready(function()
+{
+	if ($("#alertSuccess").text().trim() == ""){
+		$("#alertSuccess").hide();
+	}
+	
+	$("#alertError").hide();
+});
+
+
 //BACKS==========================================
 $(document).on("click", ".btnBacks", function(event)
 {
-	$("#hidPledgeIDSave").val($(this).data("conceptcode"));
 	$("#conceptCode").val($(this).closest("tr").find('td:eq(0)').text());
 });
 
@@ -24,10 +33,11 @@ $(document).on("click", "#btnSave", function(event)
 	}
 		
 	// If valid------------------------
+	var type = ($("#hidPledgeIDSave").val() == "") ? "POST" : "PUT";
 	$.ajax(
 	{
 		url : "PledgeAPI",
-		type : "POST",
+		type : type,
 		data : $("#formPledge").serialize(),
 		dataType : "text",
 		complete : function(response, status){
@@ -35,8 +45,6 @@ $(document).on("click", "#btnSave", function(event)
 		}
 		});
 });
-
-
 
 function onConceptSaveComplete(response, status)
 {
@@ -65,4 +73,40 @@ function onConceptSaveComplete(response, status)
 	}
 		$("#hidPledgeIDSave").val("");
 		$("#formPledge")[0].reset();
+}
+
+
+
+//========== VALIDATION ================================================
+function validateConceptForm()
+{
+		// Concept Name
+		if ($("#conceptCode").val().trim() == "")
+		{
+			return "Insert Concept Code!!";
+		}
+		
+		// Concept Description
+		if ($("#backherID").val().trim() == "")
+		{
+			return "Select username!!";
+		}
+		
+		// Concept Start Date
+		if ($("#pledgedAmnt").val().trim() == "")
+		{
+			return "Insert Pledged Amount!!";
+		}
+		
+		// is numerical value
+		var pledgedAmnt = $("#pledgedAmnt").val().trim();
+		if (!$.isNumeric(pledgedAmnt))
+		{
+			return "Invalid Pledge Amount (Please enter a number)";
+		}
+		
+		// convert to decimal price
+		$("#pledgedAmnt").val(parseFloat(pledgedAmnt).toFixed(2));
+		
+		return true;
 }
